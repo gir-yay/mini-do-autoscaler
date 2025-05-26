@@ -10,8 +10,9 @@ DO_TOKEN =  os.environ["DO_TOKEN"]
 
 CHECK_INTERVAL = 60  # seconds
 
+
+config.load_incluster_config()
 # === Kubernetes Setup ===
-config.load_kube_config()  # Assumes script runs on the master with access
 v1 = client.CoreV1Api()
 
 # === DigitalOcean Setup ===
