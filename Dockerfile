@@ -2,12 +2,15 @@ FROM python:3.10-slim
 
 # Install curl and kubectl
 RUN apt-get update && \
-    apt-get install -y curl gnupg && \
-    curl -LO "https://dl.k8s.io/release/$(curl -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" && \
-    install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl && \
-    rm kubectl && \
+    apt-get install -y curl ca-certificates && \
+    KUBECTL_VERSION=$(curl -s https://dl.k8s.io/release/stable.txt) && \
+    curl -LO "https://dl.k8s.io/release/${KUBECTL_VERSION}/bin/linux/amd64/kubectl" && \
+    chmod +x kubectl && \
+    mv kubectl /usr/local/bin/ && \
+    apt-get purge -y curl && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
+
 
 # Set working directory
 WORKDIR /app
