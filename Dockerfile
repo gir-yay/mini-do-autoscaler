@@ -7,4 +7,4 @@ RUN pip install --no-cache-dir python-digitalocean kubernetes
 
 COPY . .
 
-CMD ["python", "autoscaler.py"]
+CMD ["python", "k8s.py"]
